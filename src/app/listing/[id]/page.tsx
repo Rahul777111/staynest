@@ -1,0 +1,145 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import {
+  Star,
+  Users,
+  Bed,
+  Bathtub,
+  House,
+  ArrowLeft,
+} from "@phosphor-icons/react/dist/ssr";
+import { getListing, LISTINGS } from "@/lib/listings";
+import Navbar from "@/app/components/Navbar";
+import BookingWidget from "@/app/components/BookingWidget";
+
+export function generateStaticParams() {
+  return LISTINGS.map((l) => ({ id: l.id }));
+}
+
+export default async function ListingPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const listing = getListing(id);
+  if (!listing) notFound();
+
+  const facts = [
+    { icon: Users, label: `${listing.guests} guests` },
+    { icon: House, label: `${listing.bedrooms} bedrooms` },
+    { icon: Bed, label: `${listing.beds} beds` },
+    { icon: Bathtub, label: `${listing.baths} baths` },
+  ];
+
+  return (
+    <div className="min-h-[100dvh]">
+      <Navbar />
+      <main className="mx-auto max-w-[1120px] px-5 py-6">
+        <Link
+          href="/"
+          className="mb-4 inline-flex items-center gap-1.5 text-sm text-[var(--text-dim)] transition hover:text-[var(--text)]"
+        >
+          <ArrowLeft size={16} /> All stays
+        </Link>
+
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{listing.title}</h1>
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--text-dim)]">
+          <span className="flex items-center gap-1 text-[var(--text)]">
+            <Star size={14} weight="fill" color="var(--star)" /> {listing.rating}
+          </span>
+          <span>· {listing.reviews} reviews</span>
+          {listing.superhost && <span>· Superhost</span>}
+          <span>
+            · {listing.location}, {listing.country}
+          </span>
+        </div>
+
+        {/* gallery */}
+        <div className="mt-5 grid gap-2 overflow-hidden rounded-2xl sm:grid-cols-2">
+          {/* eslint-disable @next/next/no-img-element */}
+          <img
+            src={listing.images[0]}
+            alt={listing.title}
+            className="h-64 w-full object-cover sm:h-[420px]"
+          />
+          <div className="grid grid-cols-2 gap-2">
+            {listing.images.slice(1, 5).map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt={`${listing.title} ${i + 2}`}
+                className="hidden h-[206px] w-full object-cover sm:block"
+              />
+            ))}
+            {listing.images.length < 3 && (
+              <img
+                src={listing.images[0]}
+                alt=""
+                className="hidden h-[206px] w-full object-cover opacity-80 sm:block"
+              />
+            )}
+          </div>
+          {/* eslint-enable @next/next/no-img-element */}
+        </div>
+
+        {/* body */}
+        <div className="mt-8 grid gap-10 lg:grid-cols-[1.6fr_1fr]">
+          <div>
+            <div className="flex items-center justify-between border-b border-[var(--border)] pb-6">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  {listing.type} hosted by {listing.host.name}
+                </h2>
+                <p className="mt-1 text-sm text-[var(--text-dim)]">
+                  Host since {listing.host.since}
+                </p>
+              </div>
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-[var(--brand)] text-lg font-bold text-white">
+                {listing.host.name[0]}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-5 border-b border-[var(--border)] py-6">
+              {facts.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <span key={f.label} className="flex items-center gap-2 text-sm">
+                    <Icon size={20} className="text-[var(--text-dim)]" /> {f.label}
+                  </span>
+                );
+              })}
+            </div>
+
+            <p className="border-b border-[var(--border)] py-6 leading-relaxed text-[var(--text)]">
+              {listing.description}
+            </p>
+
+            <div className="py-6">
+              <h3 className="mb-4 text-lg font-semibold">What this place offers</h3>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {listing.amenities.map((a) => (
+                  <span
+                    key={a}
+                    className="rounded-xl border border-[var(--border)] px-3 py-2.5 text-sm"
+                  >
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <BookingWidget listing={listing} />
+        </div>
+      </main>
+
+      <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
+        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
+          <span>Built by D L Narayana</span>
+          <span>Next.js · API Routes · Motion</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
