@@ -1,5 +1,7 @@
 # StayNest — Find your next stay
 
+**Live demo: [staynest-two.vercel.app](https://staynest-two.vercel.app)**
+
 A full-stack Airbnb-style booking app. Browse unique stays around the world, search and filter, open a rich listing page, pick your dates, and book. Confirmed trips are saved and shown in My Trips.
 
 ![Tech](https://img.shields.io/badge/Next.js-16-ff385c) ![Tech](https://img.shields.io/badge/API%20Routes-server-black) ![Tech](https://img.shields.io/badge/Motion-animation-purple)
