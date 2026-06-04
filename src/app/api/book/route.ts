@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getListing } from "@/lib/listings";
+import { supabase, hasSupabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -43,9 +44,32 @@ export async function POST(req: Request) {
   const serviceFee = Math.round(nightly * 0.12);
   const total = nightly + cleaning + serviceFee;
 
+  const code = "SN-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+  const bookedAt = new Date().toISOString();
+
+  // Persist to Supabase when configured (cross-device record of the booking)
+  if (hasSupabase) {
+    await supabase.from("staynest_bookings").insert({
+      code,
+      listing_id: listing.id,
+      listing_title: listing.title,
+      location: listing.location,
+      image: listing.images[0],
+      check_in: checkIn,
+      check_out: checkOut,
+      nights,
+      guests: guests || 1,
+      total,
+      per_night: listing.price,
+      cleaning,
+      service_fee: serviceFee,
+      booked_at: bookedAt,
+    });
+  }
+
   return NextResponse.json({
     confirmation: {
-      code: "SN-" + Math.random().toString(36).slice(2, 8).toUpperCase(),
+      code,
       listingId: listing.id,
       listingTitle: listing.title,
       location: listing.location,
@@ -55,7 +79,7 @@ export async function POST(req: Request) {
       nights,
       guests: guests || 1,
       breakdown: { nightly, cleaning, serviceFee, total, perNight: listing.price },
-      bookedAt: new Date().toISOString(),
+      bookedAt,
     },
   });
 }
