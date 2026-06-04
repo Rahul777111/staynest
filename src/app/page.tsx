@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import ListingCard from "./components/ListingCard";
 import CategoryRail from "./components/CategoryRail";
 import { useWishlist } from "@/lib/wishlist";
+import { DestinationStrip, InspirationGallery } from "./components/DiscoverSections";
+import LandingHero from "./components/LandingHero";
 import type { Listing } from "@/lib/listings";
 
 export default function Home() {
@@ -48,12 +50,20 @@ export default function Home() {
     <div className="min-h-[100dvh]">
       <Navbar />
 
-      {/* hero */}
-      <section className="relative overflow-hidden border-b border-[var(--border)]">
+      <LandingHero
+        onSearch={() => {
+          document
+            .getElementById("search")
+            ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }}
+      />
+
+      {/* search hero */}
+      <section id="search" className="relative overflow-hidden border-b border-[var(--border)]">
         <div className="absolute inset-0 -z-10 bg-[var(--bg)]" />
         <div className="absolute inset-0 -z-10 opacity-60" style={{ background: "radial-gradient(70% 60% at 15% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%)" }} />
         <div className="mx-auto max-w-[1200px] px-5 py-12 sm:py-16">
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -61,7 +71,7 @@ export default function Home() {
           >
             Find a place you will{" "}
             <span className="text-[var(--brand)]">never want to leave.</span>
-          </motion.h1>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,6 +178,15 @@ export default function Home() {
           </div>
         )}
       </main>
+
+      <DestinationStrip
+        onPick={(city) => {
+          setQ(city);
+          search();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
+      <InspirationGallery />
 
       <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
