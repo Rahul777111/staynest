@@ -8,6 +8,12 @@ A full-stack Airbnb-style travel marketplace. Browse 16 unique stays around the 
 
 ## Features
 
+- **Accounts and guest mode** — real email and password sign up and log in via Supabase Auth, a profile created automatically on signup, a profile menu, and a Continue as guest option to browse and book without an account.
+- **Theme options** — light, dark, and system themes plus five accent colors (Coral, Ocean, Forest, Violet, Sunset), applied instantly across the app and remembered, with no flash on load.
+- **Built-in assistant** — Nestor, a self-contained guide with over 1,200 question and answer pairs and no external API. As you type, it suggests matching questions; tap one for a preloaded answer covering booking, wishlists, reviews, themes, accounts, experiences, and more.
+- **Realtime date validation** — the booking flow reads the live current date, so past check-in dates are blocked both in the date picker and on the server, and check-out must be after check-in.
+- **100+ reviews** across all 16 stays, with the category breakdown computed from real review data.
+
 - **16 stays across 8 categories** — beachfront, cabins, design, tropical, countryside, amazing views, iconic cities, and off the grid. Hero photography for the new stays (Santorini cave house, Highland A-frame, Serengeti safari tent, Maldives overwater villa, Joshua Tree, Norway fjord, Tuscan farmhouse, Lisbon flat) is AI-generated.
 - **Category rail and search** — Airbnb-style icon tabs plus search by destination, guests, and max price, served by an API route.
 - **Rich listing pages** — image gallery, host card with trips hosted, highlights, amenities, an interactive OpenStreetMap of the exact location, and a sticky booking widget.
@@ -22,7 +28,7 @@ A full-stack Airbnb-style travel marketplace. Browse 16 unique stays around the 
 
 ## Tech stack
 
-Next.js 16 (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres) · API Routes · OpenStreetMap embed · Motion · Phosphor Icons
+Next.js 16 (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres + Auth) · API Routes · OpenStreetMap embed · Motion · Phosphor Icons
 
 ## Getting started
 
