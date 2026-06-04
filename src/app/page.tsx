@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { MagnifyingGlass, Users, CurrencyDollar } from "@phosphor-icons/react";
 import Navbar from "./components/Navbar";
 import ListingCard from "./components/ListingCard";
+import CategoryRail from "./components/CategoryRail";
+import { useWishlist } from "@/lib/wishlist";
 import type { Listing } from "@/lib/listings";
 
 export default function Home() {
@@ -13,23 +15,34 @@ export default function Home() {
   const [q, setQ] = useState("");
   const [guests, setGuests] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [category, setCategory] = useState("all");
+  const { ids, toggle } = useWishlist();
 
-  const search = useCallback(async () => {
-    setLoading(true);
-    const params = new URLSearchParams();
-    if (q) params.set("q", q);
-    if (guests) params.set("guests", String(guests));
-    if (maxPrice) params.set("maxPrice", String(maxPrice));
-    const res = await fetch(`/api/listings?${params}`);
-    const json = await res.json();
-    setListings(json.listings || []);
-    setLoading(false);
-  }, [q, guests, maxPrice]);
+  const search = useCallback(
+    async (cat = category) => {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (q) params.set("q", q);
+      if (guests) params.set("guests", String(guests));
+      if (maxPrice) params.set("maxPrice", String(maxPrice));
+      if (cat && cat !== "all") params.set("category", cat);
+      const res = await fetch(`/api/listings?${params}`);
+      const json = await res.json();
+      setListings(json.listings || []);
+      setLoading(false);
+    },
+    [q, guests, maxPrice, category]
+  );
 
   useEffect(() => {
-    search();
+    search("all");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onCategory = (id: string) => {
+    setCategory(id);
+    search(id);
+  };
 
   return (
     <div className="min-h-[100dvh]">
@@ -45,7 +58,8 @@ export default function Home() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl"
           >
-            Find a place you will <span className="text-[var(--brand)]">never want to leave.</span>
+            Find a place you will{" "}
+            <span className="text-[var(--brand)]">never want to leave.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -53,7 +67,8 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.08 }}
             className="mt-3 max-w-xl text-[var(--text-dim)]"
           >
-            Villas, cabins, lofts and treehouses across the world. Search, pick your dates, and book in seconds.
+            Villas, cabins, lofts and treehouses across the world. Search, pick
+            your dates, and book in seconds.
           </motion.p>
 
           {/* search bar */}
@@ -81,7 +96,7 @@ export default function Home() {
                 className="bg-transparent text-sm outline-none"
               >
                 <option value={0}>Any guests</option>
-                {[1, 2, 3, 4, 5, 6, 8].map((g) => (
+                {[1, 2, 3, 4, 5, 6, 8, 10].map((g) => (
                   <option key={g} value={g}>
                     {g}+ guests
                   </option>
@@ -96,7 +111,7 @@ export default function Home() {
                 className="bg-transparent text-sm outline-none"
               >
                 <option value={0}>Any price</option>
-                {[100, 150, 250, 350, 500].map((p) => (
+                {[100, 150, 250, 350, 500, 900].map((p) => (
                   <option key={p} value={p}>
                     Up to ${p}
                   </option>
@@ -104,7 +119,7 @@ export default function Home() {
               </select>
             </div>
             <button
-              onClick={search}
+              onClick={() => search()}
               className="rounded-full bg-[var(--brand)] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--brand-dark)] active:scale-[0.98]"
             >
               Search
@@ -112,6 +127,11 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* category rail */}
+      <div className="mx-auto max-w-[1200px] px-5">
+        <CategoryRail active={category} onChange={onCategory} />
+      </div>
 
       {/* results */}
       <main className="mx-auto max-w-[1200px] px-5 py-8">
@@ -130,12 +150,19 @@ export default function Home() {
           </div>
         ) : listings.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-[var(--border)] py-20 text-center text-[var(--text-dim)]">
-            No stays match your search. Try a different place or relax the filters.
+            No stays match your search. Try a different place or relax the
+            filters.
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {listings.map((l, i) => (
-              <ListingCard key={l.id} listing={l} index={i} />
+              <ListingCard
+                key={l.id}
+                listing={l}
+                index={i}
+                liked={ids.includes(l.id)}
+                onToggle={toggle}
+              />
             ))}
           </div>
         )}
@@ -144,7 +171,7 @@ export default function Home() {
       <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
           <span>Built by D L Narayana</span>
-          <span>Next.js · API Routes · Motion</span>
+          <span>Next.js · Supabase · Motion</span>
         </div>
       </footer>
     </div>

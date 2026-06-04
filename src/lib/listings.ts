@@ -1,4 +1,5 @@
-// Seed listings for StayNest. Images use Unsplash (real photography, no key needed).
+// Seed listings for StayNest. New hero photos are AI-generated and stored locally;
+// secondary gallery images use Unsplash (real photography, no key needed).
 
 export type Listing = {
   id: string;
@@ -6,6 +7,7 @@ export type Listing = {
   location: string;
   country: string;
   type: string;
+  category: string; // one of CATEGORIES ids
   price: number; // per night, USD
   rating: number;
   reviews: number;
@@ -16,11 +18,24 @@ export type Listing = {
   superhost: boolean;
   images: string[];
   amenities: string[];
+  highlights: { title: string; body: string }[];
   description: string;
-  host: { name: string; since: string };
+  host: { name: string; since: string; superhost: boolean; trips: number };
   lat: number;
   lng: number;
 };
+
+export const CATEGORIES = [
+  { id: "all", label: "All", icon: "House" },
+  { id: "beachfront", label: "Beachfront", icon: "Waves" },
+  { id: "cabins", label: "Cabins", icon: "Tree" },
+  { id: "design", label: "Design", icon: "PaintBrush" },
+  { id: "tropical", label: "Tropical", icon: "Sun" },
+  { id: "countryside", label: "Countryside", icon: "Plant" },
+  { id: "amazing-views", label: "Amazing views", icon: "Mountains" },
+  { id: "city", label: "Iconic cities", icon: "Buildings" },
+  { id: "off-grid", label: "Off the grid", icon: "Campfire" },
+] as const;
 
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -32,6 +47,7 @@ export const LISTINGS: Listing[] = [
     location: "Amalfi Coast",
     country: "Italy",
     type: "Entire villa",
+    category: "amazing-views",
     price: 540,
     rating: 4.97,
     reviews: 128,
@@ -46,9 +62,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1512917774080-9991f1c4c750"),
     ],
     amenities: ["Infinity pool", "Sea view", "WiFi", "Kitchen", "Air conditioning", "Free parking"],
+    highlights: [
+      { title: "Dive right in", body: "Heated infinity pool open from April to November." },
+      { title: "Self check-in", body: "Check yourself in with the smart lock." },
+      { title: "Giulia is a Superhost", body: "Superhosts are experienced, highly rated hosts." },
+    ],
     description:
       "Wake up to the Tyrrhenian Sea from a glass-walled villa carved into the Amalfi cliffs. Sun-drenched terraces, a heated infinity pool, and a chef's kitchen make this the place to slow down.",
-    host: { name: "Giulia", since: "2017" },
+    host: { name: "Giulia", since: "2017", superhost: true, trips: 412 },
     lat: 40.634,
     lng: 14.602,
   },
@@ -58,6 +79,7 @@ export const LISTINGS: Listing[] = [
     location: "Aspen, Colorado",
     country: "United States",
     type: "Entire cabin",
+    category: "cabins",
     price: 320,
     rating: 4.91,
     reviews: 204,
@@ -72,9 +94,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1517320964276-a002fa203177"),
     ],
     amenities: ["Fireplace", "Hot tub", "WiFi", "Kitchen", "Ski-in/out", "Heating"],
+    highlights: [
+      { title: "Ski-in / ski-out", body: "Glide straight from the door to the lift." },
+      { title: "Mountain views", body: "Floor-to-ceiling windows onto the pines." },
+      { title: "Great for groups", body: "Sleeps six across three cozy bedrooms." },
+    ],
     description:
       "A warm timber cabin wrapped in snow-dusted pines. Curl up by the stone fireplace, soak in the hot tub under the stars, and ski straight from the door.",
-    host: { name: "Mason", since: "2019" },
+    host: { name: "Mason", since: "2019", superhost: true, trips: 188 },
     lat: 39.191,
     lng: -106.817,
   },
@@ -84,6 +111,7 @@ export const LISTINGS: Listing[] = [
     location: "Tokyo",
     country: "Japan",
     type: "Entire loft",
+    category: "city",
     price: 185,
     rating: 4.88,
     reviews: 356,
@@ -98,9 +126,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1540518614846-7eded433c457"),
     ],
     amenities: ["City view", "WiFi", "Workspace", "Kitchen", "Washer", "Self check-in"],
+    highlights: [
+      { title: "Walk everywhere", body: "Three minutes from Shibuya station." },
+      { title: "Dedicated workspace", body: "Quiet desk with fast fibre WiFi." },
+      { title: "Self check-in", body: "Keypad entry, arrive any time." },
+    ],
     description:
       "A serene, light-filled loft minutes from Shibuya crossing. Floor-to-ceiling windows, a quiet workspace, and everything within a short walk.",
-    host: { name: "Haruki", since: "2018" },
+    host: { name: "Haruki", since: "2018", superhost: false, trips: 297 },
     lat: 35.658,
     lng: 139.701,
   },
@@ -110,6 +143,7 @@ export const LISTINGS: Listing[] = [
     location: "Marrakech",
     country: "Morocco",
     type: "Entire riad",
+    category: "design",
     price: 142,
     rating: 4.94,
     reviews: 189,
@@ -124,9 +158,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1578683010236-d716f9a3f461"),
     ],
     amenities: ["Courtyard", "Plunge pool", "WiFi", "Rooftop terrace", "Breakfast", "AC"],
+    highlights: [
+      { title: "Rooftop terrace", body: "Mint tea over the medina at sunset." },
+      { title: "Tiled courtyard", body: "A cool plunge pool at the center." },
+      { title: "Breakfast included", body: "Fresh msemen and orange juice daily." },
+    ],
     description:
       "Step off the souk into a tiled oasis. This restored riad centers on a tranquil courtyard with a plunge pool and a rooftop terrace for mint tea at sunset.",
-    host: { name: "Yasmine", since: "2016" },
+    host: { name: "Yasmine", since: "2016", superhost: true, trips: 521 },
     lat: 31.629,
     lng: -7.989,
   },
@@ -136,6 +175,7 @@ export const LISTINGS: Listing[] = [
     location: "Canggu, Bali",
     country: "Indonesia",
     type: "Entire bungalow",
+    category: "beachfront",
     price: 98,
     rating: 4.85,
     reviews: 421,
@@ -150,9 +190,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1582719478250-c89cae4dc85b"),
     ],
     amenities: ["Beachfront", "Outdoor shower", "WiFi", "Scooter", "Breakfast", "Garden"],
+    highlights: [
+      { title: "Right on the beach", body: "A barefoot walk to the surf." },
+      { title: "Scooter included", body: "Explore Canggu on two wheels." },
+      { title: "Open-air living", body: "Tropical garden shower and breeze." },
+    ],
     description:
       "A breezy bamboo bungalow a barefoot walk from the surf. Open-air living, a private garden shower, and sunsets that empty your inbox.",
-    host: { name: "Wayan", since: "2020" },
+    host: { name: "Wayan", since: "2020", superhost: false, trips: 233 },
     lat: -8.648,
     lng: 115.137,
   },
@@ -162,6 +207,7 @@ export const LISTINGS: Listing[] = [
     location: "New York",
     country: "United States",
     type: "Entire apartment",
+    category: "city",
     price: 410,
     rating: 4.89,
     reviews: 142,
@@ -176,9 +222,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1556912172-45b7abe8b7e1"),
     ],
     amenities: ["Skyline view", "Elevator", "WiFi", "Gym", "Doorman", "Workspace"],
+    highlights: [
+      { title: "Private terrace", body: "Skyline drinks above the SoHo rooftops." },
+      { title: "Doorman building", body: "24/7 staffed lobby and elevator." },
+      { title: "Olivia is a Superhost", body: "Highly rated, experienced host." },
+    ],
     description:
       "Floor-to-ceiling glass over the SoHo rooftops. Designer interiors, a private terrace, and the whole city at your feet.",
-    host: { name: "Olivia", since: "2015" },
+    host: { name: "Olivia", since: "2015", superhost: true, trips: 309 },
     lat: 40.723,
     lng: -74.002,
   },
@@ -188,6 +239,7 @@ export const LISTINGS: Listing[] = [
     location: "Portland, Oregon",
     country: "United States",
     type: "Treehouse",
+    category: "off-grid",
     price: 215,
     rating: 4.96,
     reviews: 98,
@@ -202,9 +254,14 @@ export const LISTINGS: Listing[] = [
       img("photo-1505691938895-1758d7feb511"),
     ],
     amenities: ["Forest view", "Skylight", "WiFi", "Wood stove", "Hammock", "Coffee"],
+    highlights: [
+      { title: "Sleep in the canopy", body: "A skylight over the bed for stargazing." },
+      { title: "Wood stove", body: "Cozy heat on cold forest nights." },
+      { title: "Total quiet", body: "Birdsong for an alarm clock." },
+    ],
     description:
       "Sleep among the canopy in a hand-built treehouse. A skylight over the bed, a wood stove for cold nights, and birdsong for an alarm clock.",
-    host: { name: "Ethan", since: "2019" },
+    host: { name: "Ethan", since: "2019", superhost: true, trips: 142 },
     lat: 45.523,
     lng: -122.676,
   },
@@ -214,6 +271,7 @@ export const LISTINGS: Listing[] = [
     location: "Queenstown",
     country: "New Zealand",
     type: "Entire chalet",
+    category: "amazing-views",
     price: 275,
     rating: 4.93,
     reviews: 167,
@@ -228,11 +286,274 @@ export const LISTINGS: Listing[] = [
       img("photo-1469022563428-aa04fef9f5a2"),
     ],
     amenities: ["Lake view", "Fireplace", "WiFi", "Kayaks", "Kitchen", "Free parking"],
+    highlights: [
+      { title: "On the lake", body: "Kayaks at the door of Lake Wakatipu." },
+      { title: "The Remarkables", body: "Mountain range towering behind." },
+      { title: "Great for groups", body: "Three bedrooms, sleeps six." },
+    ],
     description:
       "A timber chalet on the edge of Lake Wakatipu with the Remarkables towering behind. Kayak at dawn, grill at dusk, and watch the alpenglow from the deck.",
-    host: { name: "Charlotte", since: "2018" },
+    host: { name: "Charlotte", since: "2018", superhost: false, trips: 176 },
     lat: -45.031,
     lng: 168.662,
+  },
+
+  // ---- New listings (AI-generated hero photos) ----
+  {
+    id: "cave-santorini",
+    title: "Caldera cave house with plunge pool",
+    location: "Oia, Santorini",
+    country: "Greece",
+    type: "Entire home",
+    category: "amazing-views",
+    price: 465,
+    rating: 4.98,
+    reviews: 311,
+    guests: 4,
+    bedrooms: 2,
+    beds: 2,
+    baths: 2,
+    superhost: true,
+    images: [
+      "/listings/santorini.jpg",
+      img("photo-1570077188670-e3a8d69ac5ff"),
+      img("photo-1601581875309-fafbf2d3ed3a"),
+    ],
+    amenities: ["Caldera view", "Plunge pool", "WiFi", "Air conditioning", "Kitchen", "Self check-in"],
+    highlights: [
+      { title: "Sunset front-row", body: "The famous Oia sunset from your own terrace." },
+      { title: "Private plunge pool", body: "Cool off on the edge of the caldera." },
+      { title: "Carved cave walls", body: "Whitewashed curves that stay cool all day." },
+    ],
+    description:
+      "A whitewashed cave house carved into the Oia cliffs, with a private plunge pool hanging over the caldera. Watch the most famous sunset in the Aegean from your own terrace, then sleep inside cool, curved stone walls.",
+    host: { name: "Eleni", since: "2016", superhost: true, trips: 488 },
+    lat: 36.461,
+    lng: 25.376,
+  },
+  {
+    id: "aframe-scotland",
+    title: "Glass A-frame in a Highland glen",
+    location: "Glencoe",
+    country: "Scotland",
+    type: "Entire cabin",
+    category: "cabins",
+    price: 240,
+    rating: 4.95,
+    reviews: 132,
+    guests: 4,
+    bedrooms: 2,
+    beds: 3,
+    baths: 1,
+    superhost: true,
+    images: [
+      "/listings/scotland.jpg",
+      img("photo-1449158743715-0a90ebb6d2d8"),
+      img("photo-1551927411-95e412943b58"),
+    ],
+    amenities: ["Mountain view", "Wood burner", "WiFi", "Kitchen", "Free parking", "Pet friendly"],
+    highlights: [
+      { title: "Glass gable", body: "Floor-to-ceiling views of the misty glen." },
+      { title: "Wood burner", body: "Warm up after a day on the hills." },
+      { title: "Heather all around", body: "Surrounded by wild Highland moorland." },
+    ],
+    description:
+      "A modern glass-fronted A-frame tucked into a Glencoe glen, ringed by heather and mist-wrapped peaks. Light pours through the gable by day; the wood burner glows by night.",
+    host: { name: "Callum", since: "2020", superhost: true, trips: 98 },
+    lat: 56.683,
+    lng: -5.104,
+  },
+  {
+    id: "tent-serengeti",
+    title: "Luxury safari tent on the plains",
+    location: "Serengeti",
+    country: "Tanzania",
+    type: "Tented lodge",
+    category: "off-grid",
+    price: 620,
+    rating: 4.99,
+    reviews: 87,
+    guests: 2,
+    bedrooms: 1,
+    beds: 1,
+    baths: 1,
+    superhost: true,
+    images: [
+      "/listings/serengeti.jpg",
+      img("photo-1516426122078-c23e76319801"),
+      img("photo-1547471080-7cc2caa01a7e"),
+    ],
+    amenities: ["Game drives", "Ensuite bath", "Solar power", "Full board", "Deck", "Guide"],
+    highlights: [
+      { title: "Wildlife at the door", body: "Watch herds cross from your private deck." },
+      { title: "Full board", body: "All meals and sunset game drives included." },
+      { title: "Off the grid", body: "Solar-powered, far from any city light." },
+    ],
+    description:
+      "A canvas-walled lodge on a private Serengeti concession, where giraffes graze past your deck at golden hour. Days are spent on game drives; nights, under more stars than you have ever seen.",
+    host: { name: "Joseph", since: "2017", superhost: true, trips: 203 },
+    lat: -2.333,
+    lng: 34.833,
+  },
+  {
+    id: "overwater-maldives",
+    title: "Overwater villa above the lagoon",
+    location: "Baa Atoll",
+    country: "Maldives",
+    type: "Entire villa",
+    category: "beachfront",
+    price: 890,
+    rating: 4.97,
+    reviews: 156,
+    guests: 2,
+    bedrooms: 1,
+    beds: 1,
+    baths: 1,
+    superhost: true,
+    images: [
+      "/listings/maldives.jpg",
+      img("photo-1439066615861-d1af74d74000"),
+      img("photo-1505881502353-a1986add3762"),
+    ],
+    amenities: ["Direct lagoon access", "Glass floor", "Snorkelling", "WiFi", "Breakfast", "AC"],
+    highlights: [
+      { title: "Steps into the lagoon", body: "Your own ladder into crystal water." },
+      { title: "Glass-floor lounge", body: "Watch reef fish drift beneath you." },
+      { title: "Snorkel from home", body: "The house reef is a fin-kick away." },
+    ],
+    description:
+      "A thatched overwater villa perched above a glass-clear Baa Atoll lagoon. Slip down the ladder for a morning snorkel, then watch the reef glide beneath the glass floor of your lounge.",
+    host: { name: "Aishath", since: "2018", superhost: true, trips: 244 },
+    lat: 5.21,
+    lng: 73.07,
+  },
+  {
+    id: "desert-joshuatree",
+    title: "Concrete desert house under the stars",
+    location: "Joshua Tree, California",
+    country: "United States",
+    type: "Entire home",
+    category: "design",
+    price: 355,
+    rating: 4.92,
+    reviews: 178,
+    guests: 6,
+    bedrooms: 3,
+    beds: 3,
+    baths: 2,
+    superhost: true,
+    images: [
+      "/listings/joshuatree.jpg",
+      img("photo-1505691938895-1758d7feb511"),
+      img("photo-1600585154340-be6161a56a0c"),
+    ],
+    amenities: ["Pool", "Desert view", "WiFi", "Kitchen", "Fire pit", "Stargazing"],
+    highlights: [
+      { title: "Architect-designed", body: "Concrete and glass framing the desert." },
+      { title: "Pool under the sky", body: "Float beneath a blazing sunset." },
+      { title: "Dark-sky stargazing", body: "Minutes from the national park gates." },
+    ],
+    description:
+      "A board-formed concrete house dropped among the boulders and yuccas of Joshua Tree. Floor-to-ceiling glass dissolves the line between inside and desert; the pool mirrors the pink dusk sky.",
+    host: { name: "Marisol", since: "2019", superhost: true, trips: 167 },
+    lat: 34.135,
+    lng: -116.313,
+  },
+  {
+    id: "fjord-norway",
+    title: "Grass-roof cabin on a still fjord",
+    location: "Geiranger",
+    country: "Norway",
+    type: "Entire cabin",
+    category: "amazing-views",
+    price: 295,
+    rating: 4.96,
+    reviews: 121,
+    guests: 4,
+    bedrooms: 2,
+    beds: 3,
+    baths: 1,
+    superhost: false,
+    images: [
+      "/listings/norway.jpg",
+      img("photo-1601581875309-fafbf2d3ed3a"),
+      img("photo-1518602164578-cd0074062767"),
+    ],
+    amenities: ["Fjord view", "Hot tub", "WiFi", "Kitchen", "Kayaks", "Wood burner"],
+    highlights: [
+      { title: "On the water", body: "A wooden hot tub at the fjord's edge." },
+      { title: "Waterfall views", body: "A cascade tumbles across the water." },
+      { title: "Turf roof", body: "A living grass roof, classic Norwegian." },
+    ],
+    description:
+      "A turf-roofed cabin perched where a mirror-still fjord meets green cliffs and a far-off waterfall. Soak in the wooden hot tub at the water's edge, then paddle out at dawn before anyone else wakes.",
+    host: { name: "Ingrid", since: "2021", superhost: false, trips: 64 },
+    lat: 62.101,
+    lng: 7.206,
+  },
+  {
+    id: "farmhouse-tuscany",
+    title: "Restored farmhouse among the vines",
+    location: "Val d'Orcia, Tuscany",
+    country: "Italy",
+    type: "Entire villa",
+    category: "countryside",
+    price: 380,
+    rating: 4.94,
+    reviews: 209,
+    guests: 10,
+    bedrooms: 5,
+    beds: 6,
+    baths: 4,
+    superhost: true,
+    images: [
+      "/listings/tuscany.jpg",
+      img("photo-1523217582562-09d0def993a6"),
+      img("photo-1505693416388-ac5ce068fe85"),
+    ],
+    amenities: ["Pool", "Vineyard view", "WiFi", "Full kitchen", "Free parking", "BBQ"],
+    highlights: [
+      { title: "Among the vineyards", body: "Cypress-lined rows roll to the horizon." },
+      { title: "Sleeps ten", body: "Five bedrooms across a stone farmhouse." },
+      { title: "Pool with a view", body: "Swim looking over the Val d'Orcia." },
+    ],
+    description:
+      "A centuries-old stone farmhouse restored among rolling Val d'Orcia vineyards and cypress trees. Long lunches on the terrace, lazy afternoons by the pool, and golden light that never seems to end.",
+    host: { name: "Lorenzo", since: "2015", superhost: true, trips: 356 },
+    lat: 43.067,
+    lng: 11.612,
+  },
+  {
+    id: "apartment-lisbon",
+    title: "Sunlit design flat over the rooftops",
+    location: "Alfama, Lisbon",
+    country: "Portugal",
+    type: "Entire apartment",
+    category: "city",
+    price: 165,
+    rating: 4.9,
+    reviews: 263,
+    guests: 3,
+    bedrooms: 1,
+    beds: 2,
+    baths: 1,
+    superhost: true,
+    images: [
+      "/listings/lisbon.jpg",
+      img("photo-1560185007-cde436f6a4d0"),
+      img("photo-1502672260266-1c1ef2d93688"),
+    ],
+    amenities: ["River view", "WiFi", "Workspace", "Kitchen", "Washer", "Self check-in"],
+    highlights: [
+      { title: "Tagus rooftops", body: "Pastel rooftops and river from the balcony." },
+      { title: "Azulejo charm", body: "Hand-painted tiles and mid-century pieces." },
+      { title: "Heart of Alfama", body: "Steps from miradouros and fado bars." },
+    ],
+    description:
+      "A bright apartment in the tangled lanes of Alfama, with hand-painted azulejos inside and a balcony framing terracotta rooftops down to the Tagus. Coffee on the balcony, tram 28 around the corner.",
+    host: { name: "Tiago", since: "2017", superhost: true, trips: 401 },
+    lat: 38.711,
+    lng: -9.13,
   },
 ];
 

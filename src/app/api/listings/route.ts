@@ -8,6 +8,7 @@ export async function GET(req: Request) {
   const q = (searchParams.get("q") || "").toLowerCase().trim();
   const guests = Number(searchParams.get("guests") || 0);
   const maxPrice = Number(searchParams.get("maxPrice") || 0);
+  const category = (searchParams.get("category") || "all").toLowerCase();
 
   let results = LISTINGS;
   if (q) {
@@ -18,6 +19,9 @@ export async function GET(req: Request) {
         l.title.toLowerCase().includes(q) ||
         l.type.toLowerCase().includes(q)
     );
+  }
+  if (category && category !== "all") {
+    results = results.filter((l) => l.category === category);
   }
   if (guests > 0) results = results.filter((l) => l.guests >= guests);
   if (maxPrice > 0) results = results.filter((l) => l.price <= maxPrice);
