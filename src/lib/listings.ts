@@ -166,7 +166,7 @@ export const LISTINGS: Listing[] = [
       img("photo-1571003123894-1f0594d2b5d9"),
       img("photo-1578683010236-d716f9a3f461"),
       img("photo-1545158535-c3f7168c28b6"),
-      img("photo-1551776235-dde6d482a094"),
+      img("photo-1578683010236-d716f9a3f461"),
       img("photo-1600585154526-990dced4db0d")
     ],
     amenities: ["Courtyard", "Plunge pool", "WiFi", "Rooftop terrace", "Breakfast", "AC"],
@@ -270,7 +270,7 @@ export const LISTINGS: Listing[] = [
       img("photo-1488462237308-ecaa28b729d7"),
       img("photo-1518780664697-55e3ad937233"),
       img("photo-1505691938895-1758d7feb511"),
-      img("photo-1520637736862-4d197d17c38a"),
+      img("photo-1505691938895-1758d7feb511"),
       img("photo-1499678329028-101435549a4e"),
       img("photo-1473773508845-188df298d2d1")
     ],
