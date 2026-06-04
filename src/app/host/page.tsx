@@ -110,7 +110,7 @@ export default function HostPage() {
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="h-28 animate-pulse rounded-2xl bg-white"
+                className="h-28 animate-pulse rounded-2xl bg-[var(--surface)]"
               />
             ))}
           </div>
@@ -126,7 +126,7 @@ export default function HostPage() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.05 }}
-                    className="rounded-2xl border border-[var(--border)] bg-white p-5"
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5"
                   >
                     <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--brand)]/10 text-[var(--brand)]">
                       <Icon size={18} weight="fill" />
@@ -142,7 +142,7 @@ export default function HostPage() {
             </div>
 
             {/* revenue trend */}
-            <div className="mt-4 rounded-2xl border border-[var(--border)] bg-white p-6">
+            <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold">Revenue, last 6 months</h2>
                 <span className="text-sm text-[var(--text-dim)]">
@@ -189,7 +189,7 @@ export default function HostPage() {
 
             <div className="mt-4 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
               {/* listing performance */}
-              <div className="rounded-2xl border border-[var(--border)] bg-white p-6">
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
                 <h2 className="flex items-center gap-2 font-semibold">
                   <House size={18} weight="fill" /> Listing performance
                 </h2>
@@ -238,7 +238,7 @@ export default function HostPage() {
               </div>
 
               {/* recent bookings */}
-              <div className="rounded-2xl border border-[var(--border)] bg-white p-6">
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
                 <h2 className="flex items-center gap-2 font-semibold">
                   <Bed size={18} weight="fill" /> Recent bookings
                 </h2>
@@ -275,7 +275,7 @@ export default function HostPage() {
         )}
       </main>
 
-      <footer className="border-t border-[var(--border)] bg-white">
+      <footer className="border-t border-[var(--border)] bg-[var(--surface)]">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
           <span>Built by D L Narayana</span>
           <span>Next.js · Supabase · Motion</span>

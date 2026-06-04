@@ -50,7 +50,8 @@ export default function Home() {
 
       {/* hero */}
       <section className="relative overflow-hidden border-b border-[var(--border)]">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#fff1f4] via-white to-[#fff7f0]" />
+        <div className="absolute inset-0 -z-10 bg-[var(--bg)]" />
+        <div className="absolute inset-0 -z-10 opacity-60" style={{ background: "radial-gradient(70% 60% at 15% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%)" }} />
         <div className="mx-auto max-w-[1200px] px-5 py-12 sm:py-16">
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -76,7 +77,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.16 }}
-            className="mt-7 flex flex-col gap-2 rounded-2xl border border-[var(--border)] bg-white p-2 shadow-lg sm:flex-row sm:items-center sm:rounded-full"
+            className="mt-7 flex flex-col gap-2 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-2 shadow-lg sm:flex-row sm:items-center sm:rounded-full"
           >
             <div className="flex flex-1 items-center gap-2 px-3 py-2">
               <MagnifyingGlass size={18} className="text-[var(--text-dim)]" />

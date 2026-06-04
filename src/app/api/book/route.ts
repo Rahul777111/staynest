@@ -26,8 +26,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Select check-in and check-out dates" }, { status: 400 });
   }
 
-  const start = new Date(checkIn);
-  const end = new Date(checkOut);
+  const start = new Date(checkIn + "T00:00:00");
+  const end = new Date(checkOut + "T00:00:00");
+
+  // realtime guard: reject past check-in dates using the live server date
+  const now = new Date();
+  const todayMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    return NextResponse.json({ error: "Invalid dates" }, { status: 400 });
+  }
+  if (start < todayMidnight) {
+    return NextResponse.json(
+      { error: "Check-in cannot be in the past" },
+      { status: 400 }
+    );
+  }
   const nights = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   if (Number.isNaN(nights) || nights <= 0) {
     return NextResponse.json({ error: "Check-out must be after check-in" }, { status: 400 });

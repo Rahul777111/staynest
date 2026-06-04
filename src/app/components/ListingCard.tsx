@@ -59,7 +59,7 @@ export default function ListingCard({
             />
           </button>
           {listing.superhost && (
-            <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[var(--text)] shadow">
+            <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[#222] shadow">
               Superhost
             </span>
           )}

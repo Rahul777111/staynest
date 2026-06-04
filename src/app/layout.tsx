@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { themeNoFlashScript } from "@/lib/theme";
+import Providers from "./components/Providers";
 
 export const metadata: Metadata = {
   title: "StayNest — Find your next stay",
@@ -13,8 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
+      </head>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

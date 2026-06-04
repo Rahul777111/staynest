@@ -60,6 +60,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1613490493576-7fde63acd811"),
       img("photo-1582268611958-ebfd161ef9cf"),
       img("photo-1512917774080-9991f1c4c750"),
+      img("photo-1564013799919-ab600027ffc6"),
+      img("photo-1505693416388-ac5ce068fe85"),
+      img("photo-1600210492493-0946911123ea")
     ],
     amenities: ["Infinity pool", "Sea view", "WiFi", "Kitchen", "Air conditioning", "Free parking"],
     highlights: [
@@ -92,6 +95,9 @@ export const LISTINGS: Listing[] = [
       "/listings/cabin.jpg",
       img("photo-1449158743715-0a90ebb6d2d8"),
       img("photo-1517320964276-a002fa203177"),
+      img("photo-1551524559-8af4e6624178"),
+      img("photo-1542718610-a1d656d1884c"),
+      img("photo-1518733057094-95b53143d2a7")
     ],
     amenities: ["Fireplace", "Hot tub", "WiFi", "Kitchen", "Ski-in/out", "Heating"],
     highlights: [
@@ -124,6 +130,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1522708323590-d24dbb6b0267"),
       img("photo-1505693416388-ac5ce068fe85"),
       img("photo-1540518614846-7eded433c457"),
+      img("photo-1554995207-c18c203602cb"),
+      img("photo-1493809842364-78817add7ffb"),
+      img("photo-1556020685-ae41abfc9365")
     ],
     amenities: ["City view", "WiFi", "Workspace", "Kitchen", "Washer", "Self check-in"],
     highlights: [
@@ -156,6 +165,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1539020140153-e479b8c22e70"),
       img("photo-1571003123894-1f0594d2b5d9"),
       img("photo-1578683010236-d716f9a3f461"),
+      img("photo-1545158535-c3f7168c28b6"),
+      img("photo-1551776235-dde6d482a094"),
+      img("photo-1600585154526-990dced4db0d")
     ],
     amenities: ["Courtyard", "Plunge pool", "WiFi", "Rooftop terrace", "Breakfast", "AC"],
     highlights: [
@@ -188,6 +200,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1520250497591-112f2f40a3f4"),
       img("photo-1571896349842-33c89424de2d"),
       img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1540541338287-41700207dee6"),
+      img("photo-1573843981267-be1999ff37cd"),
+      img("photo-1582610116397-edb318620f90")
     ],
     amenities: ["Beachfront", "Outdoor shower", "WiFi", "Scooter", "Breakfast", "Garden"],
     highlights: [
@@ -220,6 +235,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1502672260266-1c1ef2d93688"),
       img("photo-1560448204-e02f11c3d0e2"),
       img("photo-1556912172-45b7abe8b7e1"),
+      img("photo-1522708323590-d24dbb6b0267"),
+      img("photo-1493809842364-78817add7ffb"),
+      img("photo-1545324418-cc1a3fa10c00")
     ],
     amenities: ["Skyline view", "Elevator", "WiFi", "Gym", "Doorman", "Workspace"],
     highlights: [
@@ -252,6 +270,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1488462237308-ecaa28b729d7"),
       img("photo-1518780664697-55e3ad937233"),
       img("photo-1505691938895-1758d7feb511"),
+      img("photo-1520637736862-4d197d17c38a"),
+      img("photo-1499678329028-101435549a4e"),
+      img("photo-1473773508845-188df298d2d1")
     ],
     amenities: ["Forest view", "Skylight", "WiFi", "Wood stove", "Hammock", "Coffee"],
     highlights: [
@@ -284,6 +305,9 @@ export const LISTINGS: Listing[] = [
       img("photo-1499793983690-e29da59ef1c2"),
       img("photo-1518733057094-95b53143d2a7"),
       img("photo-1469022563428-aa04fef9f5a2"),
+      img("photo-1506905925346-21bda4d32df4"),
+      img("photo-1542314831-068cd1dbfeeb"),
+      img("photo-1470770841072-f978cf4d019e")
     ],
     amenities: ["Lake view", "Fireplace", "WiFi", "Kayaks", "Kitchen", "Free parking"],
     highlights: [
@@ -318,6 +342,9 @@ export const LISTINGS: Listing[] = [
       "/listings/santorini.jpg",
       img("photo-1570077188670-e3a8d69ac5ff"),
       img("photo-1601581875309-fafbf2d3ed3a"),
+      img("photo-1469796466635-455ede028aca"),
+      img("photo-1533105079780-92b9be482077"),
+      img("photo-1601581875309-fafbf2d3ed3a")
     ],
     amenities: ["Caldera view", "Plunge pool", "WiFi", "Air conditioning", "Kitchen", "Self check-in"],
     highlights: [
@@ -350,6 +377,9 @@ export const LISTINGS: Listing[] = [
       "/listings/scotland.jpg",
       img("photo-1449158743715-0a90ebb6d2d8"),
       img("photo-1551927411-95e412943b58"),
+      img("photo-1520250497591-112f2f40a3f4"),
+      img("photo-1502784444187-359ac186c5bb"),
+      img("photo-1449158743715-0a90ebb6d2d8")
     ],
     amenities: ["Mountain view", "Wood burner", "WiFi", "Kitchen", "Free parking", "Pet friendly"],
     highlights: [
@@ -382,6 +412,9 @@ export const LISTINGS: Listing[] = [
       "/listings/serengeti.jpg",
       img("photo-1516426122078-c23e76319801"),
       img("photo-1547471080-7cc2caa01a7e"),
+      img("photo-1535941339077-2dd1c7963098"),
+      img("photo-1547471080-7cc2caa01a7e"),
+      img("photo-1504280390367-361c6d9f38f4")
     ],
     amenities: ["Game drives", "Ensuite bath", "Solar power", "Full board", "Deck", "Guide"],
     highlights: [
@@ -414,6 +447,9 @@ export const LISTINGS: Listing[] = [
       "/listings/maldives.jpg",
       img("photo-1439066615861-d1af74d74000"),
       img("photo-1505881502353-a1986add3762"),
+      img("photo-1514282401047-d79a71a590e8"),
+      img("photo-1439066615861-d1af74d74000"),
+      img("photo-1573843981267-be1999ff37cd")
     ],
     amenities: ["Direct lagoon access", "Glass floor", "Snorkelling", "WiFi", "Breakfast", "AC"],
     highlights: [
@@ -446,6 +482,9 @@ export const LISTINGS: Listing[] = [
       "/listings/joshuatree.jpg",
       img("photo-1505691938895-1758d7feb511"),
       img("photo-1600585154340-be6161a56a0c"),
+      img("photo-1542401886-65d6c61db217"),
+      img("photo-1600607687939-ce8a6c25118c"),
+      img("photo-1600566753086-00f18fb6b3ea")
     ],
     amenities: ["Pool", "Desert view", "WiFi", "Kitchen", "Fire pit", "Stargazing"],
     highlights: [
@@ -478,6 +517,9 @@ export const LISTINGS: Listing[] = [
       "/listings/norway.jpg",
       img("photo-1601581875309-fafbf2d3ed3a"),
       img("photo-1518602164578-cd0074062767"),
+      img("photo-1601581875309-fafbf2d3ed3a"),
+      img("photo-1518602164578-cd0074062767"),
+      img("photo-1506197603052-3cc9c3a201bd")
     ],
     amenities: ["Fjord view", "Hot tub", "WiFi", "Kitchen", "Kayaks", "Wood burner"],
     highlights: [
@@ -510,6 +552,9 @@ export const LISTINGS: Listing[] = [
       "/listings/tuscany.jpg",
       img("photo-1523217582562-09d0def993a6"),
       img("photo-1505693416388-ac5ce068fe85"),
+      img("photo-1523217582562-09d0def993a6"),
+      img("photo-1542314831-068cd1dbfeeb"),
+      img("photo-1600585154340-be6161a56a0c")
     ],
     amenities: ["Pool", "Vineyard view", "WiFi", "Full kitchen", "Free parking", "BBQ"],
     highlights: [
@@ -542,6 +587,9 @@ export const LISTINGS: Listing[] = [
       "/listings/lisbon.jpg",
       img("photo-1560185007-cde436f6a4d0"),
       img("photo-1502672260266-1c1ef2d93688"),
+      img("photo-1560185007-cde436f6a4d0"),
+      img("photo-1502672260266-1c1ef2d93688"),
+      img("photo-1493809842364-78817add7ffb")
     ],
     amenities: ["River view", "WiFi", "Workspace", "Kitchen", "Washer", "Self check-in"],
     highlights: [

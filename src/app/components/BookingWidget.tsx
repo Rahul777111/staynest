@@ -23,6 +23,8 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
 
+  const today = todayPlus(0);
+
   const nights = useMemo(() => {
     const n = Math.round(
       (new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000
@@ -30,12 +32,24 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
     return Number.isNaN(n) ? 0 : n;
   }, [checkIn, checkOut]);
 
+  // realtime guard against past or invalid dates, evaluated against the live current date
+  const dateIssue = useMemo(() => {
+    if (!checkIn || !checkOut) return "Select your dates.";
+    if (checkIn < today) return "Check-in cannot be in the past.";
+    if (checkOut <= checkIn) return "Check-out must be after check-in.";
+    return "";
+  }, [checkIn, checkOut, today]);
+
   const nightly = listing.price * Math.max(nights, 0);
   const cleaning = 60;
   const serviceFee = Math.round(nightly * 0.12);
   const total = nightly + cleaning + serviceFee;
 
   const book = async () => {
+    if (dateIssue) {
+      setError(dateIssue);
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -78,7 +92,7 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
             <input
               type="date"
               value={checkIn}
-              min={todayPlus(0)}
+              min={today}
               onChange={(e) => setCheckIn(e.target.value)}
               className="bg-transparent text-sm outline-none"
             />
@@ -88,7 +102,7 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
             <input
               type="date"
               value={checkOut}
-              min={checkIn}
+              min={checkIn > today ? checkIn : today}
               onChange={(e) => setCheckOut(e.target.value)}
               className="bg-transparent text-sm outline-none"
             />
@@ -125,7 +139,7 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
 
       <button
         onClick={book}
-        disabled={busy || done || nights <= 0}
+        disabled={busy || done || nights <= 0 || Boolean(dateIssue)}
         className="mt-4 w-full rounded-xl bg-[var(--brand)] py-3 font-semibold text-white transition hover:bg-[var(--brand-dark)] active:scale-[0.99] disabled:opacity-60"
       >
         {done ? (
