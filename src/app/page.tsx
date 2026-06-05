@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
-import { MagnifyingGlass, Users, CurrencyDollar } from "@phosphor-icons/react";
+import { MagnifyingGlass, Users, CurrencyDollar, ArrowsDownUp } from "@phosphor-icons/react";
 import Navbar from "./components/Navbar";
 import ListingCard from "./components/ListingCard";
 import CategoryRail from "./components/CategoryRail";
@@ -17,6 +17,7 @@ export default function Home() {
   const [q, setQ] = useState("");
   const [guests, setGuests] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [sort, setSort] = useState("recommended");
   const [category, setCategory] = useState("all");
   const { ids, toggle } = useWishlist();
 
@@ -27,13 +28,14 @@ export default function Home() {
       if (q) params.set("q", q);
       if (guests) params.set("guests", String(guests));
       if (maxPrice) params.set("maxPrice", String(maxPrice));
+      if (sort && sort !== "recommended") params.set("sort", sort);
       if (cat && cat !== "all") params.set("category", cat);
       const res = await fetch(`/api/listings?${params}`);
       const json = await res.json();
       setListings(json.listings || []);
       setLoading(false);
     },
-    [q, guests, maxPrice, category]
+    [q, guests, maxPrice, sort, category]
   );
 
   useEffect(() => {
@@ -127,6 +129,20 @@ export default function Home() {
                     Up to ${p}
                   </option>
                 ))}
+              </select>
+            </div>
+            <div className="flex items-center gap-2 border-t border-[var(--border)] px-3 py-2 sm:border-l sm:border-t-0">
+              <ArrowsDownUp size={18} className="text-[var(--text-dim)]" />
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="bg-transparent text-sm outline-none"
+              >
+                <option value="recommended">Recommended</option>
+                <option value="recent">Recently added</option>
+                <option value="price_low">Price: low to high</option>
+                <option value="price_high">Price: high to low</option>
+                <option value="rating">Top rated</option>
               </select>
             </div>
             <button

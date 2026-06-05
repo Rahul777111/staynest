@@ -58,6 +58,25 @@ h1 { letter-spacing: -0.035em; }
 
 input, button, select, textarea { font-family: inherit; }
 
+/* Native <select> popups follow the active theme so the dropdown list
+   (e.g. guests / price filters) is never white-on-white in dark mode. */
+select {
+  color-scheme: light;
+}
+:root[data-theme="dark"] select {
+  color-scheme: dark;
+}
+select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+/* Keep native date / time picker controls visible in dark mode */
+:root[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator,
+:root[data-theme="dark"] input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.4);
+}
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
