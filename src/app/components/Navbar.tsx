@@ -13,6 +13,9 @@ import {
   User,
   SignOut,
   CaretDown,
+  UsersThree,
+  BellRinging,
+  Sparkle,
 } from "@phosphor-icons/react";
 import { useAuth } from "@/lib/auth";
 import { useUI } from "@/lib/ui";
@@ -21,8 +24,9 @@ import ThemeSwitcher from "./ThemeSwitcher";
 const LINKS = [
   { href: "/", label: "Stays", icon: HouseLine },
   { href: "/experiences", label: "Experiences", icon: SuitcaseRolling },
+  { href: "/feed", label: "Feed", icon: UsersThree },
   { href: "/wishlist", label: "Wishlist", icon: Heart },
-  { href: "/host", label: "Host", icon: ChartLineUp },
+  { href: "/premium", label: "StayNest+", icon: Sparkle },
 ];
 
 export default function Navbar() {
@@ -118,6 +122,20 @@ export default function Navbar() {
                       className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition hover:bg-[var(--muted)]"
                     >
                       <Heart size={16} /> Wishlist
+                    </Link>
+                    <Link
+                      href="/notifications"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition hover:bg-[var(--muted)]"
+                    >
+                      <BellRinging size={16} /> Notifications
+                    </Link>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition hover:bg-[var(--muted)]"
+                    >
+                      <ChartLineUp size={16} /> Host Dashboard
                     </Link>
                     <button
                       onClick={() => {
