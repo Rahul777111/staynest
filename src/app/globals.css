@@ -66,9 +66,24 @@ select {
 :root[data-theme="dark"] select {
   color-scheme: dark;
 }
-select option {
-  background-color: var(--surface);
-  color: var(--text);
+
+/* Force the option list to use solid theme colors. Some Chromium builds
+   ignore color-scheme when the <select> has a transparent background and
+   render a washed-out light popup, so we set the colors explicitly. */
+select option,
+select optgroup {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+}
+:root[data-theme="dark"] select option,
+:root[data-theme="dark"] select optgroup {
+  background-color: #1a1a1d !important;
+  color: #f4f4f5 !important;
+}
+:root[data-theme="dark"] select option:checked,
+:root[data-theme="dark"] select option:hover {
+  background-color: #2a2a2e !important;
+  color: #ffffff !important;
 }
 
 /* Keep native date / time picker controls visible in dark mode */
