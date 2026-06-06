@@ -56,7 +56,20 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
       const res = await fetch("/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ listingId: listing.id, checkIn, checkOut, guests }),
+        body: JSON.stringify({
+          listingId: listing.id,
+          checkIn,
+          checkOut,
+          guests,
+          // Sent so host-created listings (not in seed data) can still be booked.
+          listingData: {
+            title: listing.title,
+            location: listing.location,
+            image: listing.images[0],
+            price: listing.price,
+            guests: listing.guests,
+          },
+        }),
       });
       const json = await res.json();
       if (!res.ok) {

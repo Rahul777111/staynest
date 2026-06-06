@@ -106,3 +106,14 @@ select optgroup {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Map price pins: stop Leaflet's default marker box from constraining or
+   clipping our custom price label (the dollar amount was getting cut off). */
+.leaflet-marker-icon.sn-price-pin {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}

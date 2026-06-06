@@ -44,6 +44,7 @@ export default function LandingHero({
             muted
             loop
             playsInline
+            preload="auto"
             poster="/landing/hero.jpg"
             className="h-full w-full object-cover"
           >

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import {
   Star,
   Users,
@@ -16,6 +15,7 @@ import Navbar from "@/app/components/Navbar";
 import BookingWidget from "@/app/components/BookingWidget";
 import ReviewsSection, { InquiryForm } from "./ReviewsSection";
 import LocationMap from "./LocationMap";
+import UserListingDetail from "./UserListingDetail";
 
 export function generateStaticParams() {
   return LISTINGS.map((l) => ({ id: l.id }));
@@ -30,7 +30,9 @@ export default async function ListingPage({
 }) {
   const { id } = await params;
   const listing = getListing(id);
-  if (!listing) notFound();
+  // Host-created listings live in the browser; render a client fallback that
+  // hydrates them from localStorage.
+  if (!listing) return <UserListingDetail id={id} />;
 
   const facts = [
     { icon: Users, label: `${listing.guests} guests` },

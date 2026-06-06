@@ -10,6 +10,15 @@ export async function POST(req: Request) {
     checkIn?: string;
     checkOut?: string;
     guests?: number;
+    // Optional listing data for host-created (client-side) listings that
+    // do not exist in the seed data set.
+    listingData?: {
+      title?: string;
+      location?: string;
+      image?: string;
+      price?: number;
+      guests?: number;
+    };
   };
   try {
     body = await req.json();
@@ -17,8 +26,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const { listingId, checkIn, checkOut, guests } = body;
-  const listing = listingId ? getListing(listingId) : undefined;
+  const { listingId, checkIn, checkOut, guests, listingData } = body;
+  const seed = listingId ? getListing(listingId) : undefined;
+  // Fall back to client-provided data for host-created listings.
+  const listing =
+    seed ||
+    (listingId && listingData && listingData.price
+      ? {
+          id: listingId,
+          title: listingData.title || "Your stay",
+          location: listingData.location || "",
+          images: [listingData.image || ""],
+          price: Math.max(1, Math.round(Number(listingData.price))),
+          guests: Math.max(1, Math.round(Number(listingData.guests) || 1)),
+        }
+      : undefined);
   if (!listing) {
     return NextResponse.json({ error: "Listing not found" }, { status: 404 });
   }

@@ -7,7 +7,14 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const q = (searchParams.get("q") || "").toLowerCase().trim();
   const guests = Number(searchParams.get("guests") || 0);
+  const minPrice = Number(searchParams.get("minPrice") || 0);
   const maxPrice = Number(searchParams.get("maxPrice") || 0);
+  const bedrooms = Number(searchParams.get("bedrooms") || 0);
+  const superhost = (searchParams.get("superhost") || "") === "1";
+  const amenities = (searchParams.get("amenities") || "")
+    .split(",")
+    .map((a) => a.trim().toLowerCase())
+    .filter(Boolean);
   const category = (searchParams.get("category") || "all").toLowerCase();
   const sort = (searchParams.get("sort") || "recommended").toLowerCase();
 
@@ -25,7 +32,16 @@ export async function GET(req: Request) {
     results = results.filter((l) => l.category === category);
   }
   if (guests > 0) results = results.filter((l) => l.guests >= guests);
+  if (minPrice > 0) results = results.filter((l) => l.price >= minPrice);
   if (maxPrice > 0) results = results.filter((l) => l.price <= maxPrice);
+  if (bedrooms > 0) results = results.filter((l) => l.bedrooms >= bedrooms);
+  if (superhost) results = results.filter((l) => l.superhost);
+  if (amenities.length) {
+    results = results.filter((l) => {
+      const have = l.amenities.map((a) => a.toLowerCase());
+      return amenities.every((a) => have.some((h) => h.includes(a)));
+    });
+  }
 
   switch (sort) {
     case "recent":
