@@ -24,6 +24,7 @@ import { useWishlist } from "@/lib/wishlist";
 import { useUserListings } from "@/lib/userListings";
 import { DestinationStrip, InspirationGallery } from "./components/DiscoverSections";
 import RecentlyViewed from "./components/RecentlyViewed";
+import SiteFooter from "./components/SiteFooter";
 import LandingHero from "./components/LandingHero";
 import type { Listing } from "@/lib/listings";
 
@@ -350,12 +351,7 @@ export default function Home() {
       />
       <InspirationGallery />
 
-      <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
-          <span>Built by D L Narayana</span>
-          <span>Next.js · Supabase · Motion</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -166,6 +166,10 @@ export default function BookingWidget({ listing }: { listing: Listing }) {
         )}
       </button>
 
+      <p className="mt-3 text-center text-xs text-[var(--text-dim)]">
+        You won&apos;t be charged yet
+      </p>
+
       {nights > 0 && (
         <div className="mt-4 flex flex-col gap-2 text-sm">
           <Row label={`$${listing.price} x ${nights} nights`} value={`$${nightly}`} />

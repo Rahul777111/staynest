@@ -22,6 +22,8 @@ import ReviewsSection, { InquiryForm } from "./ReviewsSection";
 import LocationMap from "./LocationMap";
 import ShareButton from "@/app/components/ShareButton";
 import SimilarStays from "@/app/components/SimilarStays";
+import Gallery from "@/app/components/Gallery";
+import SiteFooter from "@/app/components/SiteFooter";
 
 const HL_ICONS = [Sparkle, Key, Medal];
 
@@ -111,14 +113,7 @@ export default function UserListingDetail({ id }: { id: string }) {
         </div>
 
         {/* gallery */}
-        <div className="mt-5 overflow-hidden rounded-2xl">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={listing.images[0]}
-            alt={listing.title}
-            className="h-64 w-full object-cover sm:h-[440px]"
-          />
-        </div>
+        <Gallery images={listing.images} title={listing.title} />
 
         {/* body */}
         <div className="mt-8 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
@@ -207,12 +202,7 @@ export default function UserListingDetail({ id }: { id: string }) {
         <SimilarStays category={listing.category} currentId={listing.id} />
       </main>
 
-      <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
-        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
-          <span>Built by D L Narayana</span>
-          <span>Next.js · Supabase · Motion</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

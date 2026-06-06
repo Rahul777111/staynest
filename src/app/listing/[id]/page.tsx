@@ -15,13 +15,34 @@ import Navbar from "@/app/components/Navbar";
 import BookingWidget from "@/app/components/BookingWidget";
 import ReviewsSection, { InquiryForm } from "./ReviewsSection";
 import LocationMap from "./LocationMap";
+import type { Metadata } from "next";
 import UserListingDetail from "./UserListingDetail";
+import Gallery from "@/app/components/Gallery";
+import SiteFooter from "@/app/components/SiteFooter";
 import RecordView from "@/app/components/RecordView";
 import ShareButton from "@/app/components/ShareButton";
 import SimilarStays from "@/app/components/SimilarStays";
 
 export function generateStaticParams() {
   return LISTINGS.map((l) => ({ id: l.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const l = getListing(id);
+  if (!l) return { title: "Stay — StayNest" };
+  const description = l.description.slice(0, 155);
+  const title = `${l.title} · ${l.location} — StayNest`;
+  return {
+    title,
+    description,
+    openGraph: { title, description, images: l.images.slice(0, 1) },
+    twitter: { card: "summary_large_image", title, description, images: l.images.slice(0, 1) },
+  };
 }
 
 const HL_ICONS = [Sparkle, Key, Medal];
@@ -73,34 +94,7 @@ export default async function ListingPage({
         </div>
 
         {/* gallery */}
-        <div className="mt-5 grid gap-2 overflow-hidden rounded-2xl sm:grid-cols-2">
-          {/* eslint-disable @next/next/no-img-element */}
-          <img
-            src={listing.images[0]}
-            alt={listing.title}
-            className="h-64 w-full object-cover sm:h-[440px]"
-          />
-          <div className="grid grid-cols-2 gap-2">
-            {listing.images.slice(1, 5).map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${listing.title} photo ${i + 2}`}
-                className="hidden h-[214px] w-full object-cover sm:block"
-              />
-            ))}
-            {listing.images.length < 3 &&
-              Array.from({ length: 3 - listing.images.length + 1 }).map((_, i) => (
-                <img
-                  key={`fill-${i}`}
-                  src={listing.images[0]}
-                  alt=""
-                  className="hidden h-[214px] w-full object-cover opacity-80 sm:block"
-                />
-              ))}
-          </div>
-          {/* eslint-enable @next/next/no-img-element */}
-        </div>
+        <Gallery images={listing.images} title={listing.title} />
 
         {/* body */}
         <div className="mt-8 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
@@ -195,12 +189,7 @@ export default async function ListingPage({
         <RecordView listing={listing} />
       </main>
 
-      <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
-        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-[var(--text-dim)]">
-          <span>Built by D L Narayana</span>
-          <span>Next.js · Supabase · Motion</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

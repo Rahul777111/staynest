@@ -58,11 +58,15 @@ export default function ListingCard({
               color={liked ? "#ff385c" : "rgba(255,255,255,0.92)"}
             />
           </button>
-          {listing.superhost && (
+          {listing.rating >= 4.9 ? (
+            <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[#222] shadow">
+              <Star size={11} weight="fill" color="#ff385c" /> Guest favourite
+            </span>
+          ) : listing.superhost ? (
             <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[#222] shadow">
               Superhost
             </span>
-          )}
+          ) : null}
           {listing.images.length > 1 && (
             <div className="absolute inset-x-3 bottom-3 flex items-center justify-between opacity-0 transition group-hover:opacity-100">
               <button
