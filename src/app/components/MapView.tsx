@@ -14,13 +14,15 @@ function priceIcon(price: number, active: boolean) {
   return L.divIcon({
     className: "sn-price-pin",
     html: `<div style="
+        display:inline-flex;align-items:center;justify-content:center;
         background:${bg};
         color:${color};
         border:1px solid var(--border);
-        box-shadow:0 2px 8px rgba(0,0,0,0.18);
-        font-weight:700;font-size:12px;
-        padding:5px 9px;border-radius:999px;
-        white-space:nowrap;transform:translate(-50%,-50%);
+        box-shadow:0 2px 10px rgba(0,0,0,0.22);
+        font-weight:700;font-size:13px;line-height:1;
+        height:28px;padding:0 11px;border-radius:14px;
+        white-space:nowrap;box-sizing:border-box;
+        transform:translate(-50%,-50%);
         font-family:inherit;">$${price}</div>`,
     iconSize: [0, 0],
     iconAnchor: [0, 0],
