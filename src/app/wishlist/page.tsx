@@ -6,14 +6,16 @@ import { Heart, ArrowRight } from "@phosphor-icons/react";
 import Navbar from "../components/Navbar";
 import ListingCard from "../components/ListingCard";
 import { useWishlist } from "@/lib/wishlist";
+import { useUserListings } from "@/lib/userListings";
 import { LISTINGS } from "@/lib/listings";
 
 export default function WishlistPage() {
   const { ids, ready, toggle } = useWishlist();
+  const { listings: userListings } = useUserListings();
 
   const saved = useMemo(
-    () => LISTINGS.filter((l) => ids.includes(l.id)),
-    [ids]
+    () => [...userListings, ...LISTINGS].filter((l) => ids.includes(l.id)),
+    [ids, userListings]
   );
 
   return (

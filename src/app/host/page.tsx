@@ -11,6 +11,7 @@ import {
   Bed,
 } from "@phosphor-icons/react";
 import Navbar from "../components/Navbar";
+import ManageListings from "./ManageListings";
 
 type HostData = {
   summary: {
@@ -104,6 +105,8 @@ export default function HostPage() {
         <p className="mt-1 text-sm text-[var(--text-dim)]">
           Welcome back. Here is how your portfolio is performing.
         </p>
+
+        <ManageListings />
 
         {loading || !data ? (
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
