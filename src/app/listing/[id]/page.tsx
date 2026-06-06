@@ -16,6 +16,9 @@ import BookingWidget from "@/app/components/BookingWidget";
 import ReviewsSection, { InquiryForm } from "./ReviewsSection";
 import LocationMap from "./LocationMap";
 import UserListingDetail from "./UserListingDetail";
+import RecordView from "@/app/components/RecordView";
+import ShareButton from "@/app/components/ShareButton";
+import SimilarStays from "@/app/components/SimilarStays";
 
 export function generateStaticParams() {
   return LISTINGS.map((l) => ({ id: l.id }));
@@ -52,9 +55,12 @@ export default async function ListingPage({
           <ArrowLeft size={16} /> All stays
         </Link>
 
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          {listing.title}
-        </h1>
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            {listing.title}
+          </h1>
+          <ShareButton title={listing.title} />
+        </div>
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--text-dim)]">
           <span className="flex items-center gap-1 text-[var(--text)]">
             <Star size={14} weight="fill" color="var(--star)" /> {listing.rating}
@@ -184,6 +190,9 @@ export default async function ListingPage({
             <BookingWidget listing={listing} />
           </div>
         </div>
+
+        <SimilarStays category={listing.category} currentId={listing.id} />
+        <RecordView listing={listing} />
       </main>
 
       <footer className="border-t border-[var(--border)] bg-[var(--muted)]">

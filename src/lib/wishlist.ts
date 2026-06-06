@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "@/lib/toast";
 
 // A stable per-browser device id so wishlists persist in Supabase across sessions
 // without requiring auth. Mirrors how a logged-out Airbnb-style favourites list works.
@@ -50,6 +51,7 @@ export function useWishlist() {
       setIds((prev) =>
         has ? prev.filter((x) => x !== listingId) : [...prev, listingId]
       );
+      toast(has ? "Removed from wishlist" : "Saved to wishlist", "success");
       try {
         await fetch("/api/wishlist", {
           method: has ? "DELETE" : "POST",

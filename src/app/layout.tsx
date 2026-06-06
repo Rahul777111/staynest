@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Manrope } from "next/font/google";
 import "./globals.css";
 import { themeNoFlashScript } from "@/lib/theme";
 import Providers from "./components/Providers";
+import Toaster from "./components/Toaster";
 
 const display = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

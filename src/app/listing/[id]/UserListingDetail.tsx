@@ -14,11 +14,14 @@ import {
   Medal,
 } from "@phosphor-icons/react";
 import { getUserListing } from "@/lib/userListings";
+import { recordView } from "@/lib/recentlyViewed";
 import type { Listing } from "@/lib/listings";
 import Navbar from "@/app/components/Navbar";
 import BookingWidget from "@/app/components/BookingWidget";
 import ReviewsSection, { InquiryForm } from "./ReviewsSection";
 import LocationMap from "./LocationMap";
+import ShareButton from "@/app/components/ShareButton";
+import SimilarStays from "@/app/components/SimilarStays";
 
 const HL_ICONS = [Sparkle, Key, Medal];
 
@@ -27,8 +30,10 @@ export default function UserListingDetail({ id }: { id: string }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setListing(getUserListing(id) || null);
+    const found = getUserListing(id) || null;
+    setListing(found);
     setReady(true);
+    if (found) recordView(found);
   }, [id]);
 
   if (!ready) {
@@ -86,9 +91,12 @@ export default function UserListingDetail({ id }: { id: string }) {
         <span className="inline-block rounded-full bg-[var(--brand)]/10 px-2.5 py-1 text-xs font-semibold text-[var(--brand)]">
           Your listing
         </span>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-          {listing.title}
-        </h1>
+        <div className="mt-2 flex items-start justify-between gap-3">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            {listing.title}
+          </h1>
+          <ShareButton title={listing.title} />
+        </div>
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--text-dim)]">
           <span className="flex items-center gap-1 text-[var(--text)]">
             <Star size={14} weight="fill" color="var(--star)" />{" "}
@@ -195,6 +203,8 @@ export default function UserListingDetail({ id }: { id: string }) {
             <BookingWidget listing={listing} />
           </div>
         </div>
+
+        <SimilarStays category={listing.category} currentId={listing.id} />
       </main>
 
       <footer className="border-t border-[var(--border)] bg-[var(--muted)]">
