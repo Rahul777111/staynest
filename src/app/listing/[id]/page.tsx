@@ -176,11 +176,12 @@ export default async function ListingPage({
               location={listing.location}
               country={listing.country}
             />
+
+            <InquiryForm listingId={listing.id} hostName={listing.host.name} />
           </div>
 
           <div>
             <BookingWidget listing={listing} />
-            <InquiryForm listingId={listing.id} hostName={listing.host.name} />
           </div>
         </div>
       </main>
