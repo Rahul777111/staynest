@@ -70,14 +70,14 @@ export default function ListingCard({
                 className="grid h-7 w-7 place-items-center rounded-full bg-white/90 shadow"
                 aria-label="Previous photo"
               >
-                <CaretLeft size={14} weight="bold" />
+                <CaretLeft size={14} weight="bold" color="#222222" />
               </button>
               <button
                 onClick={next}
                 className="grid h-7 w-7 place-items-center rounded-full bg-white/90 shadow"
                 aria-label="Next photo"
               >
-                <CaretRight size={14} weight="bold" />
+                <CaretRight size={14} weight="bold" color="#222222" />
               </button>
             </div>
           )}
