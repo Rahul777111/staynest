@@ -1,19 +1,67 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { motion } from "motion/react";
-import { MapPin } from "@phosphor-icons/react";
+import { MapPin, CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { DESTINATIONS, INSPIRATION, galleryUrl } from "@/lib/gallery";
 
 export function DestinationStrip({ onPick }: { onPick?: (city: string) => void }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Let a vertical mouse wheel scroll the strip horizontally (default browser
+  // behaviour only scrolls horizontal strips with a trackpad gesture or the
+  // keyboard). Attached as a non-passive listener so we can preventDefault.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // honour real horizontal scroll
+      if (el.scrollWidth <= el.clientWidth) return; // nothing to scroll
+      el.scrollLeft += e.deltaY;
+      e.preventDefault();
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
+  const nudge = (dir: -1 | 1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
+  };
+
   return (
     <section className="mx-auto max-w-[1200px] px-5 py-10">
-      <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-        Explore by destination
-      </h2>
-      <p className="mt-1 text-sm text-[var(--text-dim)]">
-        Twenty-four cities travellers are loving right now.
-      </p>
-      <div className="no-scrollbar mt-5 flex gap-4 overflow-x-auto pb-2">
+      <div className="flex items-end justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            Explore by destination
+          </h2>
+          <p className="mt-1 text-sm text-[var(--text-dim)]">
+            Twenty-four cities travellers are loving right now.
+          </p>
+        </div>
+        <div className="hidden items-center gap-2 sm:flex">
+          <button
+            onClick={() => nudge(-1)}
+            aria-label="Scroll left"
+            className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] bg-[var(--surface)] transition hover:bg-[var(--muted)] active:scale-95"
+          >
+            <CaretLeft size={16} weight="bold" className="text-[var(--text)]" />
+          </button>
+          <button
+            onClick={() => nudge(1)}
+            aria-label="Scroll right"
+            className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] bg-[var(--surface)] transition hover:bg-[var(--muted)] active:scale-95"
+          >
+            <CaretRight size={16} weight="bold" className="text-[var(--text)]" />
+          </button>
+        </div>
+      </div>
+      <div
+        ref={scrollRef}
+        className="no-scrollbar mt-5 flex gap-4 overflow-x-auto pb-2"
+      >
         {DESTINATIONS.map((d, i) => (
           <motion.button
             key={d.city}
