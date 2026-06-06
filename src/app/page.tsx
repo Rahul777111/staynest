@@ -23,6 +23,7 @@ import FiltersModal, {
 import { useWishlist } from "@/lib/wishlist";
 import { useUserListings } from "@/lib/userListings";
 import { DestinationStrip, InspirationGallery } from "./components/DiscoverSections";
+import RecentlyViewed from "./components/RecentlyViewed";
 import LandingHero from "./components/LandingHero";
 import type { Listing } from "@/lib/listings";
 
@@ -337,6 +338,8 @@ export default function Home() {
           search(category, f);
         }}
       />
+
+      <RecentlyViewed />
 
       <DestinationStrip
         onPick={(city) => {
